@@ -1,0 +1,33 @@
+
+body {
+
+    background-color: #FFC0CB !important;
+}
+
+#mygifs {
+
+    background-color: teal;
+
+}
+
+h2 {
+
+    text-align: center;
+
+}
+
+#submit {
+
+    color: white;
+    background-color: #343A40;
+
+}
+
+.btn { 
+
+    margin: 5pt;
+    text-align: center;
+
+}
+
+
