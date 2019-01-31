@@ -1,96 +1,167 @@
 //api key: cfCFSqVgECgfroxCS4uPJIM3PUo7BZSA
 
 $(document).ready(function() {
- 
 
-// 1. create an array of strings
+//array
 
 var topics = ["Steak", "Sushi", "Apple", "Coffee", "Tea", "Soda", "Cake", "Pie"]
 
+//functions
 
+function createButtons()
 
-//Your app should take the topics in this array and create buttons in your HTML.
-// Try using a loop that appends a button for each string in the array.
+    {
 
-function createButtons(){
+        $("#mybuttons").empty();
 
-    $("#mybuttons").empty();
+            for (var i = 0; i < topics.length; i++)
+    
+            {
 
-    for (var i = 0; i < topics.length; i++){
+                var gifButton = $("<button>");
 
-    var gifButton = $("<button>");
-        gifButton.addClass("btn btn-dark btn-lg")
-        gifButton.attr("data-name", topics[i]);
-        gifButton.text(topics[i]);
-        gifButton.on("click", function(){
+                    gifButton.addClass("btn btn-dark btn-lg")
+                    gifButton.attr("data-name", topics[i]);
+                    gifButton.attr("id", "food");
+                    gifButton.text(topics[i]);
 
-            alert("test")
-            
-            var food = $(this).attr("data-food");
-            
-            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + food + "&api_key=cfCFSqVgECgfroxCS4uPJIM3PUo7BZSA&limit=10";
-            
-            $.ajax({ 
-
-                url: queryURL, 
-                method: "GET"
-            
-             })
-            
-            $("#mygifs").empty();
-
-            var results = response.data
-
-            if (results == ""){
-
-            alert("There isn't a gif for this selected button");
+                    $("#mybuttons").append(gifButton);
 
             }
 
-            for (var i=0; i< results.length; i++){
+    }
 
-                var gifDiv = $("<div>");
-                    
-                    gifDiv.addClass("gifDiv");
+function createGifs()
 
-                var gifRating = $("<p>").text("Rating: " + results[i].rating);
-                    
-                    gifDiv.append(gifRating);
+    {
+        $("#mygifs").empty();
 
-                var gifImage = $("<img>");
+        alert("Order up!")
+    
+        var urlfuud = $(this).attr("data-name");
 
-                    gifImage.attr("src", results[i].images.fixed_height_small_still.url);
-                    gifImage.attr("data-still",results[i].images.fixed_height_small_still.url);
-                    gifImage.attr("data-animate",results[i].images.fixed_height_small.url);
-                    gifImage.attr("data-state", "still");
-                    gifImage.addClass("image");
-                    gifDiv.append(gifImage);
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" 
+            + urlfuud 
+            + "&api_key=cfCFSqVgECgfroxCS4uPJIM3PUo7BZSA&limit=10";
+    
+        $.ajax(
+            
+        { 
+            
+            url: queryURL, 
+            method: "GET"
+    
+        }).done(
+         
+        
+    function(response) 
+     
+        {
+    
+        var results = response.data
 
+        if (results == "")
 
-                $("#mygifs").prepend(gifDiv);
+            {
+                alert("Sorry, we're out of this ingredient!");
+            }
 
-                    } 
+        for (var j = 0; j < results.length; j++)
+    
+            {
+
+            var gifDiv = $("<div>");
+            
+                gifDiv.addClass("gifDiv");
+
+            var gifItself = $("<img>");
+
+                gifItself.attr("src", results[j].images.fixed_height_small_still.url);
+                gifItself.attr("data-still", results[j].images.fixed_height_small_still.url);
+                gifItself.attr("data-animate", results[j].images.fixed_height_small.url);
+                gifItself.attr("id", "gifid");
+                gifItself.attr("data-state", "still");
+                gifItself.addClass("image");
+        
+                gifDiv.append(gifItself);
+
+            var gifRating = $("<p>").text("Rating: " + results[j].rating);
+            
+                gifDiv.append(gifRating);
+
+            $("#mygifs").prepend(gifDiv);
+
+            console.log(queryURL);
+
+            } 
+
+        });
+        
+    }
+
+function activateGifs() 
+
+    {
+    
+        var state = $(this).attr("data-state");
+    
+        if (state === "still") 
+        
+        {
+            $(this).attr("src", $(this).attr("data-animate"));
                 
+            $(this).attr("data-state", "animate");
+
+            alert("Please be patient, your order may need time to warm up!")
+
+        }
+    
+        else 
+        
+        {
+            $(this).attr("src", $(this).attr("data-still"));
                 
-
-        console.log(queryURL);
-
-
-});
-
-//button press
-
-$("#mybuttons").append(gifButton);
-
+            $(this).attr("data-state", "still");
+    
+        }   
+    
 }
 
-//for var
+function newButton()
 
-}
-// for create buttons
+    {
+        event.preventDefault();
 
+        var newfood = $("#fd").val().trim();
+
+        topics.push(newfood);
+            
+        createButtons();
+
+        alert("Your request is now on the menu!")
+
+        console.log(newfood)
+
+
+     }
+
+
+
+//click functions
+
+$(document).on("click", "#food", createGifs);
+
+$(document).on("click", "#gifid", activateGifs);
+
+$(document).on("click", "#submit", newButton);
+
+
+// run function upon opening page
 
 createButtons();
+
      
 });
+
+//end
 
