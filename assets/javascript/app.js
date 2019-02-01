@@ -4,7 +4,7 @@ $(document).ready(function() {
 
 //array
 
-var topics = ["Steak", "Sushi", "Apple", "Coffee", "Tea", "Soda", "Cake", "Pie"]
+var topics = ["steak", "sushi", "apple", "coffee", "tea", "soda", "cake"]
 
 //functions
 
@@ -36,7 +36,7 @@ function createGifs()
     {
         $("#mygifs").empty();
 
-        alert("Order up!")
+        
     
         var urlfuud = $(this).attr("data-name");
 
@@ -64,6 +64,12 @@ function createGifs()
 
             {
                 alert("Sorry, we're out of this ingredient!");
+            }
+            
+        else 
+        
+            {
+                alert("Order up!")
             }
 
         for (var j = 0; j < results.length; j++)

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Meie+Script');
 
 body {
 
@@ -8,7 +9,7 @@ body {
 #mybuttons {
 
     margin: auto;
-    width: 60%;
+    width: 50%;
 
 }
 
@@ -26,11 +27,19 @@ body {
 
 }
 
+h1 {
+
+    text-align: center;
+}
+
 h2 {
 
     text-align: center;
+    font-family: 'Lobster', cursive !important;
+    font-size: 55pt !important;
 
 }
+
 
 p {
 
